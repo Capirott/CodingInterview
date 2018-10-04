@@ -57,19 +57,38 @@ bool method3(const string str)
     return true;
 }
 
+bool method4(const string str)
+{ //~ copied from the book
+    int checker = 0;
+    const size_t len = str.length();
+    for (size_t i = 0; i < len; ++i)
+    {
+        const int val = str[i] - 'a';
+        if (checker & (1 << val))
+        {
+            return false;
+        }
+        checker |= (1 << val);
+    }
+    return true;
+}
+
 int main()
 {
     const string str = "abcdefghijklmnopqrstuvwxyz";
     const string str2 = "abcdefghijklmnopqrstuvwxyzd";
+
     const bool res1 = method1(str);
 
     assert(res1 == true);
     assert(res1 == method2(str));
     assert(res1 == method3(str));
+    assert(res1 == method4(str));
 
     assert(method1(str2) == false);
     assert(method2(str2) == false);
     assert(method3(str2) == false);
+    assert(method4(str2) == false);
 
     return 0;
 }
